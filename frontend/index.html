@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task manager</title>
+    <meta name="description" content="Un gestionnaire de tâches, pour vous aider au quotidien" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Task manager</h1>
+    </header>
+
+    <main>
+        <div class="create-task-container">
+            <button id="create-task-btn">nouvelle tâche</button>
+        </div>
+
+        <div class="message success" hidden>
+            la nouvelle tâche a bien été ajoutée
+        </div>
+        <div class="message danger" hidden>
+            oops, impossible de sauvegarder la tâche
+        </div>
+
+        <ul class="tasklist"></ul>
+
+        <div class="modal-dialog" id="taskModal">
+            <form id="task-create-form">
+                <h2>Nouvelle tâche <span id="close-modal-btn">&times;</span></h2>
+                <label for="task-title" class="screen-reader-only">Titre de la tâche</label>
+                <input name="id" id="task-id" type="hidden" />
+                <select name="category_id" id="task-category">
+                    <option value="">Choisir une catégorie</option>
+                </select>
+                <input name="title" id="task-title" placeholder="titre de la tâche..." type="text" required />
+                <button>Ajouter</button>
+            </form>
+        </div>
+
+        <div class="modal-dialog" id="taskEditModal">
+            <form id="task-edit-form">
+                <h2>
+                    Modifier la tâche <span id="close-edit-modal-btn">&times;</span>
+                </h2>
+                <label for="task-title" class="screen-reader-only">Titre de la tâche</label>
+                <input name="id" id="task-edit-id" type="hidden" />
+                <select name="category_id" id="task-edit-category">
+                    <option value="">Choisir une catégorie</option>
+                </select>
+                <input name="title" id="task-edit-title" value="titre de la tâche..." type="text" required />
+                <button>ajouter</button>
+            </form>
+        </div>
+    </main>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
