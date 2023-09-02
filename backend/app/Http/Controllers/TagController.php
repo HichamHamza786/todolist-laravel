@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
@@ -11,7 +12,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return Tag::all();
     }
 
     /**
@@ -19,15 +20,25 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $title = $request->input('title');
+
+        $tag = new Tag();
+        $tag->title = $title;
+
+        if ($tag->save()) {
+            return response()->json($tag, 201);
+        } else {
+            return response(null, 500);
+        }
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Tag $tag)
     {
-        //
+        return $tag;
     }
 
     /**
@@ -35,14 +46,14 @@ class TagController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Tag $tag)
     {
-        //
+        return $tag->delete();
     }
 }
