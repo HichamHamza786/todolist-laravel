@@ -12,7 +12,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        return Tag::all();
+        $tag = Tag::all();
+
+        return response()->json($tag);
     }
 
     /**
@@ -46,14 +48,36 @@ class TagController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+        $tag = Tag::find($id);
+
+        if (!$tag) {
+            return response(null, 404);
+        }
+
+        $title = $request->input('title');
+        $tag->title = $title;
+
+        if ($title->save()) {
+            return response()->json($tag);
+        } else {
+            return response(null, 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tag $tag)
+    public function destroy($id)
     {
-        return $tag->delete();
+        $tag = Tag::find($id);
+        if (!$tag) {
+            return response(null, 404);
+        }
+
+        if ($tag->delete()) {
+            return response(null, 200);
+        } else {
+            return response(null, 500);
+        }
     }
 }

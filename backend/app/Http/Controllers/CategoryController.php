@@ -12,7 +12,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::all();
+        $category = Category::all();
+
+        return response()->json($category);
     }
 
     /**
@@ -42,16 +44,38 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Category $category)
+    public function update(Request $request, $id)
     {
-        return $category->put();
+        $category = Category::find($id);
+
+        if (!$category) {
+            return response(null, 404);
+        }
+
+        $title = $request->input('title');
+        $category->title = $title;
+
+        if ($title->save()) {
+            return response()->json($category);
+        } else {
+            return response(null, 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        return $category->delete();
+        $category = Category::find($id);
+        if (!$category) {
+            return response(null, 404);
+        }
+
+        if ($category->delete()) {
+            return response(null, 200);
+        } else {
+            return response(null, 500);
+        }
     }
 }

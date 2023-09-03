@@ -9,6 +9,15 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $table = 'tasks';
-    public $timestamps = false;
+    protected $fillable = ['title', 'category_id', 'status'];
+
+    public function categories()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
